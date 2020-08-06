@@ -2,68 +2,69 @@ package com.aseng;
 
 public class GeneratorText {
     public static void main(String[] args) {
-        String text = "Aldi Wahyu Saragih";
-        modeUppercase(text);
+        String text = "bunda himawari adalah bidadari untuk bapak bapak";
+        System.out.println(modeUppercase(textConvert(text)));
+        System.out.println(modeNumber(textConvert(text)));
+        System.out.println(modeSpecial(textConvert(text)));
     }
 
-    private static void modeUppercase(String text) {
-        text = text.toLowerCase();
-        String[] splitText = text.split(" ");
-        String[] splitWord;
+    public static String textConvert(String text) {
+        String tmpText = text.toLowerCase();
+        String[] word = {"bunda", "bapak", "suami"};
+        String[] wordReplace = {"boendaa", "bapacckk", "misuua"};
 
-        for (int i = 0; i < splitText.length; i++) {
-            splitWord = splitText[i].split("(?!^)");
+        for (int i = 0; i < word.length; i++) {
+            tmpText = tmpText.replace(word[i], wordReplace[i]);
+        }
 
-            for (int j = 0; j < splitWord.length ; j++) {
-                int check = oddEven(splitText[i].charAt(j));
+        return tmpText;
+    }
 
-                if (check == 2) {
-                    splitText[i] = splitText[i].toUpperCase();
+    private static String modeUppercase(String text) {
+        char[] arrText = text.toLowerCase().toCharArray();
+
+        boolean makeUppercase = true;
+        for (int i = 0; i < arrText.length; i++) {
+            if (makeUppercase && Character.isLetter(arrText[i])) {
+                arrText[i] = Character.toUpperCase(arrText[i]);
+                makeUppercase = false;
+            } else if (!makeUppercase && Character.isLetter(arrText[i])) {
+                makeUppercase = true;
+            }
+        }
+
+        return String.valueOf(arrText);
+    }
+
+    private static String modeNumber(String text) {
+        char[] arrText = text.toLowerCase().toCharArray();
+        char[] word = {'a','g','i','o','s'};
+        char[] wordReplace = {'4','6','1','0','5'};
+
+        for (int i = 0; i < arrText.length; i++) {
+            for (int j = 0; j < word.length; j++) {
+                if (arrText[i] == word[j]) {
+                    arrText[i] = wordReplace[j];
                 }
             }
-
-            System.out.println(splitText[i]);
         }
+
+        return String.valueOf(arrText);
     }
 
-    private static void modeNumber(String text) {
-        text = text.toLowerCase();
-        String[] word = {"a","g","i","o","s"};
-        String[] wordReplace = {"4", "6", "1", "0", "5"};
+    private static String modeSpecial(String text) {
+        char[] arrText = text.toLowerCase().toCharArray();
+        char[] word = {'a','i','s'};
+        char[] wordReplace = {'@','!','$'};
 
-        String[] splitText = text.split(" ");
-
-        for (int i = 0; i < splitText.length ; i++) {
-
-            for (int j = 0; j < word.length ; j++) {
-                splitText[i] = splitText[i].replace(word[j], wordReplace[j]);
+        for (int i = 0; i < arrText.length; i++) {
+            for (int j = 0; j < word.length; j++) {
+                if (arrText[i] == word[j]) {
+                    arrText[i] = wordReplace[j];
+                }
             }
-
-            System.out.print(splitText[i] + " ");
         }
-    }
 
-    private static void modeSpecial(String text) {
-        text = text.toLowerCase();
-        String[] word = {"a", "i", "s"};
-        String[] wordReplace = {"@", "!", "$"};
-
-        String[] splitText = text.split(" ");
-
-        for (int i = 0; i < splitText.length ; i++) {
-
-            for (int j = 0; j < word.length ; j++) {
-                splitText[i] = splitText[i].replace(word[j], wordReplace[j]);
-            }
-
-            System.out.print(splitText[i] + " ");
-        }
-    }
-
-    private static int oddEven(int num) {
-        if(num % 2 == 0)
-            return 2;
-        else
-           return 1;
+        return String.valueOf(arrText);
     }
 }
